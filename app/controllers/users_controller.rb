@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       redirect_to user_path(new_user)
     else
       redirect_to register_path
-      flash[:alert] = 'Email is not unique or form is not fully complete'
+      flash[:alert] = 'Email is not unique or form is not fully complete or passwords do not match'
     end
   end
 
