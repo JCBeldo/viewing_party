@@ -24,7 +24,7 @@ RSpec.describe 'Discover Movies Page', type: :feature do
       click_button("Search")
       expect(current_path).to eq("/users/#{user_1.id}/movies")
       expect(page).to have_content('Title: Transformers')
-      expect(page).to have_content('Rating: 6.776')
+      expect(page).to have_content('Rating: 6.777')
     end
 
     it "should display each title as a link", :vcr do 

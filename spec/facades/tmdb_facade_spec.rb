@@ -12,7 +12,7 @@ RSpec.describe TmdbFacade do
       movie = TmdbFacade.new.top_rated_list
       
       expect(movie.top_rated_movies.first[:title]).to eq('The Godfather')
-      expect(movie.top_rated_movies.last[:title]).to eq('Seven Samurai')
+      expect(movie.top_rated_movies.last[:title]).to eq("Gabriel's Inferno")
     end
     
     it 'has a movie details facade with attributes', :vcr do

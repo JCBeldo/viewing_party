@@ -7,9 +7,16 @@ RSpec.describe "new user page" do
 
       fill_in(:name, with: 'Austin')
       fill_in(:email, with: 'austin@gmail.com')
+      fill_in(:password, with: 'test')
+      fill_in(:password_confirmation, with: 'test')
+
       click_button('Register')
 
-      expect(current_path).to eq(user_path(User.all.last))
+      user = User.all.last
+
+      expect(user).to_not have_attribute(:password)
+      expect(user.password_digest).to_not eq('test')
+      expect(current_path).to eq(user_path(user))
     end
     it "verifies the sad path of the form" do
       visit register_path

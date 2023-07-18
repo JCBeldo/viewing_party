@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   end
 
   def new
-    
   end
 
   def discover
@@ -14,9 +13,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
-    if user.save
-      redirect_to user_path(user)
+    new_user = User.new(user_params)
+    if new_user.save
+      flash[:success] = "Welcome, #{user_params[:name]}!"
+      redirect_to user_path(new_user)
     else
       redirect_to register_path
       flash[:alert] = 'Email is not unique or form is not fully complete'
@@ -26,6 +26,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:name, :email)
+    params.permit(:name, :email, :password, :password_confirmation)
   end
 end

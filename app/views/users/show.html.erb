@@ -1,8 +1,9 @@
-<h2><center><%= @user.name %>'s Dashboard</h2>
+<center><h2><%= @user.name %>'s Dashboard</h2>
 <%= button_to 'Discover Movies', "/users/#{@user.id}/discover", method: :get %>
+<br />
 <% @hosted_parties.each do |party| %>
 <% if @user.name == party.user.name || party.other_users.include?(@user.name) %>
-<div style='border: solid black; margin: 20px;'><center>
+<div style='border: solid black; margin-left: 620px; margin-right: 620px;'>
 <%= image_tag("https://image.tmdb.org/t/p/w200#{@details.movie_details(party.movie).poster}") %>
 <p>Movie Title: <%= link_to @details.movie_details(party.movie).title, "/users/#{@user.id}/movies/#{party.movie}" %></p>
 <p>Start Date: <%= party.start_date %></p>
@@ -17,6 +18,6 @@
 <% end %>
 <% end %>
 </div>
-<br>
+<br />
 <% end %>
 <% end %>
