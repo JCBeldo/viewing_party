@@ -15,7 +15,7 @@
   <h1 style="font-size:80px;"><center>Viewing Party</h1>
   <div class="container">
         <% flash.each do |type, notice| %>
-          <h5 class="text-info"><b><%= notice %></b></h5>
+          <h2 style="color:red;" class="text-info"><b><%= notice %></b></h2>
         <% end %>
       </div>
     <%= yield %>

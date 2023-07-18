@@ -13,13 +13,30 @@ class UsersController < ApplicationController
   end
 
   def create
-    new_user = User.new(user_params)
+    user = user_params
+    user[:password] = user[:password].downcase
+    new_user = User.new(user)
     if new_user.save
+      session[:user_id] = new_user.id
       flash[:success] = "Welcome, #{user_params[:name]}!"
       redirect_to user_path(new_user)
     else
+      flash[:error] = 'Email is not unique or form is not fully complete or passwords do not match'
       redirect_to register_path
-      flash[:alert] = 'Email is not unique or form is not fully complete or passwords do not match'
+    end
+  end
+
+  def login_form
+  end
+
+  def login
+    user = User.find_by(email: params[:email])
+    if user.authenticate(params[:password])
+      flash[:success] = "Welcome, #{user.name}!"
+      redirect_to root_path
+    else
+      flash[:error] = 'Invalid Credentials'
+      redirect_to login_path
     end
   end
 
