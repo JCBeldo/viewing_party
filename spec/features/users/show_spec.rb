@@ -1,12 +1,3 @@
-# When I visit '/users/:id' where :id is a valid user id,
-# I should see:
-
-# "<user's name>'s Dashboard" at the top of the page
-# A button to Discover Movies*
-# A section that lists viewing parties**
-# *more instructions on this in the Dashboard:Discover Movies issue.
-# **more instructions on this in the Dashboard:Viewing Parties issue.
-
 require 'rails_helper'
 
 RSpec.describe 'Users Dashboard' do
@@ -32,7 +23,7 @@ RSpec.describe 'Users Dashboard' do
           vpu_6 = ViewingPartyUser.create(user_id: user_3.id, viewing_party_id: vp_3.id)
 
           visit user_path(user_1)
-
+          
           expect(page).to have_content("#{user_1.name}'s Dashboard")
           expect(page).to have_button('Discover Movies')
           expect(page).to have_link('Hello-Goodbye')
