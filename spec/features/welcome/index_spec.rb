@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "root" do
+RSpec.describe 'root' do
   let!(:user_1) { create(:user) }
   let!(:user_2) { create(:user) }
   let!(:user_3) { create(:user) }
 
-  describe "welcome page" do
+  describe 'welcome page' do
     it 'verifies content' do
       visit root_path
 
@@ -17,8 +17,8 @@ RSpec.describe "root" do
       expect(page).to have_link('Home')
     end
   end
-  describe "links" do
-    it "verifies functionality of user dashboard link" do
+  describe 'links' do
+    it 'verifies functionality of user dashboard link' do
       visit root_path
 
       click_link(user_1.name)
@@ -34,9 +34,16 @@ RSpec.describe "root" do
 
     it 'verifies functionality of Create New User button' do
       visit root_path
-      
+
       click_button('Create New User')
       expect(current_path).to eq(register_path)
+    end
+
+    it 'verifies functionality of Login link' do
+      visit root_path
+
+      click_link('I already have an account')
+      expect(current_path).to eq(login_path)
     end
   end
 end

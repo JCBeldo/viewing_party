@@ -1,9 +1,9 @@
-<h3><center>Create a Movie Party for <%= @details.title %></h3>
+<center><h3>Create a Movie Party for <%= @details.title %></h3>
 
 <%= button_to 'Discover Page', "/users/#{@user.id}/movies/discover", method: :get %>
 
 <br />
-<center><b>Movie Title</b>  <%= @details.title %>
+<b>Movie Title</b>  <%= @details.title %>
 <%= form_with url: "/viewing_parties", method: :post, local: true do |f| %>
   <%= f.label :duration, "Duration of Party" %>
   <%= f.number_field :duration, value: @details.default_runtime %>
