@@ -1,9 +1,13 @@
-<center><%= link_to "I already have an account", login_path, style: "font-size:25px;" %>
-<br><br>
-<%= button_to "Create New User", register_path, method: :get, style: "font-size:20px;" %>
+<% if session[:user_id] %>
+  <center><h2 style="font-size:25px;"><%= link_to 'Log Out', logout_path %></h2>
 
-<h3 style="background-color:lightgrey; padding:20px; font-size:40px;">Existing Users</h3>
-</center>
-<% @users.each do |user| %>
-  <ul style="margin-left:655px; font-size:25px;"><%= link_to "#{user.name}", user_path(user) %></ul>
+  <h3 style="background-color:lightgrey; padding:20px; font-size:40px;">Existing Users</h3>
+  <% @users.each do |user| %>
+    <ul style="font-size:25px;"><%= link_to "#{user.name}", user_path(user) %></ul>
+  <% end %>
+<% else %>
+  <center><%= link_to "I already have an account", login_path, style: "font-size:25px;" %>
+  <br><br>
+  <%= button_to "Create New User", register_path, method: :get, style: "font-size:20px;" %>
+  </center>
 <% end %>
