@@ -5,8 +5,7 @@ class UsersController < ApplicationController
     @details = TmdbFacade.new
   end
 
-  def new
-  end
+  def new; end
 
   def discover
     @user = User.find(params[:id])
@@ -23,20 +22,6 @@ class UsersController < ApplicationController
     else
       flash[:error] = 'Email is not unique or form is not fully complete or passwords do not match'
       redirect_to register_path
-    end
-  end
-
-  def login_form
-  end
-
-  def login
-    user = User.find_by(email: params[:email])
-    if user.authenticate(params[:password])
-      flash[:success] = "Welcome, #{user.name}!"
-      redirect_to root_path
-    else
-      flash[:error] = 'Invalid Credentials'
-      redirect_to login_path
     end
   end
 
