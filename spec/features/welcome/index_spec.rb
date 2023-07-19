@@ -7,18 +7,30 @@ RSpec.describe 'root' do
 
   describe 'welcome page' do
     it 'verifies content' do
-      visit root_path
+      visit login_path
+
+      fill_in(:email, with: "#{user_1.email}")
+      fill_in(:password, with: "#{user_1.password}")
+      click_button('Log In')
 
       expect(page).to have_content('Viewing Party')
-      expect(page).to have_button('Create New User')
+      expect(page).to_not have_button('Create New User')
       expect(page).to have_link(user_1.name)
       expect(page).to have_link(user_2.name)
       expect(page).to have_link(user_3.name)
       expect(page).to have_link('Home')
+      expect(page).to have_link('Log Out')
     end
   end
+  
   describe 'links' do
     it 'verifies functionality of user dashboard link' do
+      visit login_path
+
+      fill_in(:email, with: "#{user_1.email}")
+      fill_in(:password, with: "#{user_1.password}")
+      click_button('Log In')
+      
       visit root_path
 
       click_link(user_1.name)
