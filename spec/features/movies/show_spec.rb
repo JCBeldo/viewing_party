@@ -1,20 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'movie show page' do
-  let!(:user_1) { create(:user) }
-  let!(:user_2) { create(:user) }
-  let!(:user_3) { create(:user) }
-
   describe 'movie show page content' do
     it 'movie show page contents' do
       VCR.use_cassette('spec/fixtures/vcr_cassettes/movie_show_page/movie_show_page_contents.yml') do
         VCR.use_cassette('spec/fixtures/vcr_cassettes/movie_show_page/cast.yml') do
           VCR.use_cassette('spec/fixtures/vcr_cassettes/movie_show_page/reviews.yml') do
-            visit "/users/#{user_1.id}/movies/238"
+            visit '/movies/238'
 
             expect(page).to have_button('Create Viewing Party')
             expect(page).to have_button('Discover Page')
-            
+
             expect(page).to have_content('Title: The Godfather')
             expect(page).to have_content('Rating: 8.7')
             expect(page).to have_content('Runtime: 2h 55m')
@@ -37,6 +33,24 @@ RSpec.describe 'movie show page' do
             expect(page).to have_content('Author: drystyx')
             expect(page).to have_content('Author: CinemaSerf')
             expect(page).to have_content('Author: Suresh Chidurala')
+          end
+        end
+      end
+    end
+
+    it 'gives an error when logged out user tries to create a viewing party' do
+      VCR.use_cassette('spec/fixtures/vcr_cassettes/movie_show_page/movie_show_page_contents.yml') do
+        VCR.use_cassette('spec/fixtures/vcr_cassettes/movie_show_page/cast.yml') do
+          VCR.use_cassette('spec/fixtures/vcr_cassettes/movie_show_page/reviews.yml') do
+            visit root_path
+
+            click_link('Discover Movies')
+            click_button('Discover Top Rated Movies')
+            click_link('The Shawshank Redemption')
+            click_button('Create Viewing Party')
+
+            expect(current_path).to eq(root_path)
+            expect(page).to have_content('Please sign in or register')
           end
         end
       end
