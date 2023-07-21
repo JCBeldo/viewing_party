@@ -1,16 +1,21 @@
 class ViewingPartiesController < ApplicationController
   def new
-    @user = User.find(params[:id])
-    @users = User.all
-    @movie = params[:movie_id]
-    @details = TmdbFacade.new.movie_details(@movie)
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+      @users = User.all
+      @movie = params[:movie_id]
+      @details = TmdbFacade.new.movie_details(@movie)
+    else
+      flash[:alert] = 'Please sign in or register'
+      redirect_to root_path
+    end
   end
 
   def create
     user = User.find(params[:user_id])
     movie = params[:movie]
     if params[:duration].to_i < params[:movie_duration].to_i
-      redirect_to "/users/#{user.id}/movies/#{movie}/viewing-party/new"
+      redirect_to "/movies/#{movie}/viewing-party/new"
       flash[:alert] = 'Party Duration is Less Than Movie Duration'
     else
       viewing_party = ViewingParty.new(viewing_party_params)
