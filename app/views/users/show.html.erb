@@ -1,5 +1,5 @@
 <center><h2><%= @user.name %>'s Dashboard</h2>
-<%= button_to 'Discover Movies', "/users/#{@user.id}/discover", method: :get %>
+<%= button_to 'Discover Movies', "/discover", method: :get %>
 <br />
 <% @hosted_parties.each do |party| %>
 <% if @user.name == party.user.name || party.other_users.include?(@user.name) %>

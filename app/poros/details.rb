@@ -4,7 +4,7 @@ class Details
               :runtime, 
               :genres, 
               :summary,
-              :default_runtime, 
+              :default_runtime,
               :id,
               :poster
 

@@ -5,11 +5,17 @@ class UsersController < ApplicationController
     @details = TmdbFacade.new
   end
 
-  def new; end
-
-  def discover
-    @user = User.find(params[:id])
+  def dashboard
+    if session[:user_id]
+      user = session[:user_id]
+      redirect_to user_path(user)
+    else
+      flash[:alert] = 'Please sign in or register first'
+      redirect_to root_path
+    end
   end
+
+  def new; end
 
   def create
     user = user_params

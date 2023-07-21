@@ -6,11 +6,14 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :users, only: [:show, :create]
+  get '/dashboard', to: 'users#dashboard'
 
-  get '/users/:id/discover', to: 'users#discover'
-  get '/users/:id/movies', to: 'movies#index'
-  get '/users/:id/movies/:movie_id', to: 'movies#show'
-  get '/users/:id/movies/:movie_id/viewing-party/new', to: 'viewing_parties#new'
+  get '/discover', to: 'movies#discover'
+
+  get '/movies', to: 'movies#index'
+  get '/movies/:movie_id', to: 'movies#show'
+
+  get '/movies/:movie_id/viewing-party/new', to: 'viewing_parties#new'
 
   post '/viewing_parties', to: 'viewing_parties#create'
 
@@ -19,5 +22,4 @@ Rails.application.routes.draw do
   get '/login', to: 'session#new'
   post '/login', to: 'session#create'
   get '/logout', to: 'session#destroy'
-
 end

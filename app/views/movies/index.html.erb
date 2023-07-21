@@ -1,7 +1,7 @@
-<%= button_to "Discover Page", "/users/#{@user.id}/discover", method: :get %>
+<%= button_to 'Discover Page', '/discover', method: :get %>
 <h3>Results:<h3>
 
 <% @results.each do |result| %>
-  <p>Title: <%= link_to "#{result[:title]}", "/users/#{@user.id}/movies/#{result[:id]}" %></p>
+  <p>Title: <%= link_to "#{result[:title]}", "/movies/#{result[:id]}" %></p>
   <p>Rating: <%= result[:vote_average] %></p>
 <% end %>
